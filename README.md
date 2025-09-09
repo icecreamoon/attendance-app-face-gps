@@ -1,12 +1,20 @@
-# React + Vite
+# 勤怠管理アプリ（顔認証＋GPS）
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+##　概要 
+リモートワークでも正確な勤怠管理ができるように、顔認証とGPS機能を組み込んだスマホ対応のWebアプリを個人開発しています。AWSの無料枠を活用し、コストを抑えながら実用性を重視した設計を目指しています。
 
-Currently, two official plugins are available:
+##　使用技術
+- フロントエンド：React + Vite, Tailwind CSS
+- バックエンド：AWS Rekognition（顔認証）、S3（画像保存）、DynamoDB（勤怠データ）、Cognito（認証）
+- * その他：Geolocation API（GPS取得）
+  * 
+##　特徴
+- 顔認証による本人確認で不正打刻を防止
+- GPSで位置情報を取得し、外出先でも正確な打刻が可能
+- スマホ対応のレスポンシブUIで、どこでも使える
+- GitHubポートフォリオとして公開
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##　今後の展望
+- 打刻履歴の保存と表示
+- AWS連携による顔認証
+- ユーザーごとの勤怠データ管理
