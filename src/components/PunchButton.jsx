@@ -51,13 +51,28 @@ const PunchButton = ({ onPunched }) => {
             query: createPunchLog,
             variables: { input }
           }).then((response) => {
-            console.log('打刻成功:', response.data?.createPunchLog);
+            console.log('GraphQLレスポンス:', response);
+
+            const punchData =
+              response?.data?.createPunchLog ||
+              response?.createPunchLog;
+
+            if (!punchData) {
+              throw new Error('createPunchLogのレスポンスが空です');
+            }
+
+            console.log('打刻成功:', punchData);
+
             if (onPunched) {
               onPunched(new Date().toLocaleString("ja-JP"));
             }
           }).catch((error) => {
             console.error('GraphQL送信エラー:', error);
-            alert(`打刻に失敗しました: ${error.message}`);
+            const safeMessage =
+              error?.message ||
+              error?.errors?.[0]?.message ||
+              JSON.stringify(error);
+            alert(`打刻に失敗しました: ${safeMessage}`);
           });
       
         } catch (error) {
