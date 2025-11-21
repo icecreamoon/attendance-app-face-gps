@@ -7,8 +7,12 @@ export const getPunchLog = /* GraphQL */ `
       id
       userId
       timestamp
-      location
+      method
+      latitude
+      longitude
+      address
       photoUrl
+      location
       createdAt
       updatedAt
       __typename
@@ -26,8 +30,12 @@ export const listPunchLogs = /* GraphQL */ `
         id
         userId
         timestamp
-        location
+        method
+        latitude
+        longitude
+        address
         photoUrl
+        location
         createdAt
         updatedAt
         __typename

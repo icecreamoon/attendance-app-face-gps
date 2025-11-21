@@ -15,7 +15,12 @@ const PunchLogList = ({ logs }) => {
             <strong>日時:</strong> {new Date(log.timestamp).toLocaleString("ja-JP")}
           </p>
           <p className="text-sm text-gray-600">
-            <strong>位置:</strong> {log.location}
+            <strong>位置:</strong> {' '}
+            {log.address
+              ? log.address
+              : log.latitude && log.longitude
+              ? `${log.latitude}, ${log.longitude}`
+              : '位置情報なし'}
           </p>
           {log.photoUrl && (
             <img

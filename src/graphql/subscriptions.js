@@ -7,8 +7,12 @@ export const onCreatePunchLog = /* GraphQL */ `
       id
       userId
       timestamp
-      location
+      method
+      latitude
+      longitude
+      address
       photoUrl
+      location
       createdAt
       updatedAt
       __typename
@@ -21,8 +25,12 @@ export const onUpdatePunchLog = /* GraphQL */ `
       id
       userId
       timestamp
-      location
+      method
+      latitude
+      longitude
+      address
       photoUrl
+      location
       createdAt
       updatedAt
       __typename
@@ -35,8 +43,12 @@ export const onDeletePunchLog = /* GraphQL */ `
       id
       userId
       timestamp
-      location
+      method
+      latitude
+      longitude
+      address
       photoUrl
+      location
       createdAt
       updatedAt
       __typename

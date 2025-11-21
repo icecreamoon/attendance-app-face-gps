@@ -12,6 +12,9 @@
       "AmplifyAppId": "d2lijcskd32zq2"
     },
     "categories": {
+      "auth": {
+        "kintaiappcfdd1929": {}
+      },
       "api": {
         "kintaiapp": {}
       }
