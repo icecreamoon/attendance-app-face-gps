@@ -103,11 +103,20 @@ function FaceVerify({ onVerified }) {
   };
 
   return (
-    <div className="mb-4">
+    <div style={{ marginBottom: '1rem' }}>
       {!cameraActive ? (
         <button
           onClick={startCamera}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded mb-2"
+          style={{
+            backgroundColor: '#FFD700', // 黄色
+            color: '#666',
+            fontWeight: 'bold',
+            padding: '0.5rem 1rem',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer',
+            marginBottom: '0.5rem'
+          }}
         >
           カメラを起動
         </button>
@@ -118,18 +127,32 @@ function FaceVerify({ onVerified }) {
             autoPlay
             playsInline
             muted
-            style={{ width: '100%', maxHeight: '300px', backgroundColor: '#000', borderRadius: '8px' }}
+            style={{
+              width: '100%',
+              maxHeight: '300px',
+              backgroundColor: '#000',
+              borderRadius: '8px'
+            }}
           />
           <button
             onClick={handleCapture}
-            className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded"
+            style={{
+              backgroundColor: '#FFD700', // 黄色
+              color: '#666',
+              fontWeight: 'bold',
+              padding: '0.5rem 1rem',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              marginTop: '0.5rem'
+            }}
           >
             撮影して認証
           </button>
         </>
       )}
       {result && (
-        <div className="mt-2 text-sm text-gray-700">
+        <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#333' }}>
           <p>ステータス: {result.status}</p>
           <p>一致: {result.status === 'verified' ? '✅ 一致' : '❌ 不一致'}</p>
           <p>信頼度: {result.confidence}</p>
@@ -140,5 +163,6 @@ function FaceVerify({ onVerified }) {
 }
 
 export default FaceVerify;
+
 
 
