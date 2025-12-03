@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Authenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { generateClient } from 'aws-amplify/api';
 import { createPunchLog } from './graphql/mutations';
 import { listPunchLogs } from './graphql/queries';
 import FaceVerify from './components/FaceVerify';
 
-Amplify.configure(awsExports);
 const client = generateClient();
 
 function AppContent({ signOut }) {
@@ -63,7 +61,7 @@ function AppContent({ signOut }) {
             method: type,
             latitude: 35.0,
             longitude: 135.0,
-            address: '名古屋市',
+            address: '名古屋市', // 住所を保存
           }
         },
         authMode: 'userPool'
@@ -126,17 +124,18 @@ function AppContent({ signOut }) {
           サインアウト
         </button>
 
-        {/* 顔認証開始ボタン */}
+        {/* カメラ起動ボタン */}
         <button
           onClick={() => setCameraReady(true)}
           style={{
             marginTop: '1rem',
-            backgroundColor: '#4CAF50',
+            backgroundColor: '#9C27B0', // 紫に統一
             color: 'white',
-            padding: '0.5rem 1rem',
+            padding: '0.7rem 1.2rem',
             border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
+            borderRadius: '6px',
+            cursor: 'pointer',
+            fontSize: '1rem'
           }}
         >
           顔認証を開始
@@ -153,7 +152,7 @@ function AppContent({ signOut }) {
                   alert('顔認証に失敗しました');
                 }
               }}
-            />
+            /> 
           </div>
         )}
 
@@ -197,7 +196,7 @@ function AppContent({ signOut }) {
           </p>
         )}
 
-        {/* 履歴を左右に分ける */}
+        {/* 履歴を左右に分ける（住所付き） */}
         <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem', width: '100%' }}>
           <div style={{ flex: 1, backgroundColor: '#fafafa', padding: '1rem', borderRadius: '8px' }}>
             <h3 style={{ textAlign: 'center' }}>出勤履歴</h3>
@@ -207,6 +206,8 @@ function AppContent({ signOut }) {
                 .map(log => (
                   <li key={log.id}>
                     {new Date(log.timestamp).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+                    <br />
+                    📍 {log.address}
                   </li>
                 ))}
             </ul>
@@ -219,6 +220,8 @@ function AppContent({ signOut }) {
                 .map(log => (
                   <li key={log.id}>
                     {new Date(log.timestamp).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+                    <br />
+                    📍 {log.address}
                   </li>
                 ))}
             </ul>
