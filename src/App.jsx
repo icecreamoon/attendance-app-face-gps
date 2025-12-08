@@ -1,77 +1,24 @@
-import { useState, useEffect } from 'react';
-import { Authenticator } from '@aws-amplify/ui-react';
-import { Amplify } from 'aws-amplify';
-import { fetchUserAttributes } from 'aws-amplify/auth';
-import { generateClient } from 'aws-amplify/api';
-import { createPunchLog } from './graphql/mutations';
-import { listPunchLogs } from './graphql/queries';
+import { useState } from 'react';
 import FaceVerify from './components/FaceVerify';
 
-const client = generateClient();
-
-function AppContent({ signOut }) {
-  const [displayName, setDisplayName] = useState('');
+function AppContent() {
+  const [displayName] = useState('ゲスト'); // 認証なしなので固定表示
   const [cameraReady, setCameraReady] = useState(false);
   const [timestamp, setTimestamp] = useState(null);
   const [punchLogs, setPunchLogs] = useState([]);
 
-  useEffect(() => {
-    const loadAttributes = async () => {
-      try {
-        const attributes = await fetchUserAttributes();
-        const name =
-          attributes.preferred_username ||
-          attributes.name ||
-          attributes.email ||
-          'ユーザー';
-        setDisplayName(name);
-      } catch (error) {
-        console.error('ユーザー属性の取得に失敗しました:', error);
-        setDisplayName('ユーザー');
-      }
+  const punch = (type) => {
+    const now = new Date().toISOString();
+    // ダミーデータを追加（API呼び出しは削除）
+    const newLog = {
+      id: punchLogs.length + 1,
+      method: type,
+      timestamp: now,
+      address: '名古屋市'
     };
-    loadAttributes();
-  }, []);
-
-  useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-        const result = await client.graphql({
-          query: listPunchLogs,
-          authMode: 'userPool'
-        });
-        const items = result.data.listPunchLogs.items;
-        const sorted = items.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-        setPunchLogs(sorted);
-      } catch (error) {
-        console.error('打刻履歴の取得に失敗:', error);
-      }
-    };
-    fetchLogs();
-  }, [timestamp]);
-
-  const punch = async (type) => {
-    try {
-      const now = new Date().toISOString();
-      await client.graphql({
-        query: createPunchLog,
-        variables: {
-          input: {
-            timestamp: now,
-            method: type,
-            latitude: 35.0,
-            longitude: 135.0,
-            address: '名古屋市', // 住所を保存
-          }
-        },
-        authMode: 'userPool'
-      });
-      setTimestamp(now);
-      alert(`${type === 'in' ? '出勤' : type === 'out' ? '退勤' : '顔認証'} 打刻成功：${now}`);
-    } catch (error) {
-      console.error(`${type} 打刻失敗:`, JSON.stringify(error, null, 2));
-      alert(`${type} 打刻に失敗しました`);
-    }
+    setPunchLogs([newLog, ...punchLogs]);
+    setTimestamp(now);
+    alert(`${type === 'in' ? '出勤' : type === 'out' ? '退勤' : '顔認証'} 打刻成功：${now}`);
   };
 
   return (
@@ -97,7 +44,7 @@ function AppContent({ signOut }) {
           maxWidth: '1000px'
         }}
       >
-        <h1>勤怠管理アプリ</h1>
+        <h1>勤怠管理アプリ（ポートフォリオ用）</h1>
         <p
           style={{
             fontFamily: '"M PLUS Rounded 1c", "Noto Sans JP", sans-serif',
@@ -108,28 +55,12 @@ function AppContent({ signOut }) {
           お疲れ様です、{displayName} さん
         </p>
 
-        {/* サインアウトボタン */}
-        <button
-          onClick={signOut}
-          style={{
-            marginTop: '1rem',
-            backgroundColor: '#888',
-            color: 'white',
-            padding: '0.5rem 1rem',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          サインアウト
-        </button>
-
         {/* カメラ起動ボタン */}
         <button
           onClick={() => setCameraReady(true)}
           style={{
             marginTop: '1rem',
-            backgroundColor: '#9C27B0', // 紫に統一
+            backgroundColor: '#9C27B0',
             color: 'white',
             padding: '0.7rem 1.2rem',
             border: 'none',
@@ -152,11 +83,11 @@ function AppContent({ signOut }) {
                   alert('顔認証に失敗しました');
                 }
               }}
-            /> 
+            />
           </div>
         )}
 
-        {/* 出勤・退勤ボタンを横並び */}
+        {/* 出勤・退勤ボタン */}
         <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem', width: '100%', maxWidth: '500px' }}>
           <button
             onClick={() => punch('in')}
@@ -196,7 +127,7 @@ function AppContent({ signOut }) {
           </p>
         )}
 
-        {/* 履歴を左右に分ける（住所付き） */}
+        {/* 履歴表示 */}
         <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem', width: '100%' }}>
           <div style={{ flex: 1, backgroundColor: '#fafafa', padding: '1rem', borderRadius: '8px' }}>
             <h3 style={{ textAlign: 'center' }}>出勤履歴</h3>
@@ -233,12 +164,7 @@ function AppContent({ signOut }) {
 }
 
 export default function App() {
-  return (
-    <Authenticator>
-      {({ signOut }) => (
-        <AppContent signOut={signOut} />
-      )}
-    </Authenticator>
-  );
+  return <AppContent />;
 }
+
 
