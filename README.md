@@ -44,8 +44,8 @@ AWS Amplify Hosting を利用し、**認証あり版（本番用）**と**認証
 
 🚀 デモ・ポートフォリオ用途
 このアプリは GitHub ポートフォリオとして公開しています。  
-- 本番用（認証あり）: https://xxxx.amplifyapp.com  
-- ポートフォリオ用（認証なし）: https://yyyy.amplifyapp.com  
+- 本番用（認証あり）: https://main.d3cood7we5k9zc.amplifyapp.com 
+- ポートフォリオ用（認証なし）: https://portfolio.dutlr7hpjcqub.amplifyapp.com
 
 勤怠管理の実用性と、AWS・Python・React の技術統合を体験できるプロジェクトです。
 
