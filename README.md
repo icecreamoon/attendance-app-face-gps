@@ -9,9 +9,26 @@ AWS Amplify Hosting を利用し、
 
 ---
 
-## 📸 スクリーンショット  
-※ 後でここに画像を追加します  
-（ホーム画面 / 顔認証 / 打刻履歴 / 管理者ページ / ダッシュボード）
+## 📸 スクリーンショット
+
+### ホーム画面
+![home](./images/home.png)
+
+### 顔認証画面（カメラ表示）
+![face](./images/face.png)
+
+### 打刻履歴（位置情報・住所付き）
+![history](./images/history.png)
+
+### 管理者ページ（顔写真付きテーブル）
+![admin](./images/admin.png)
+
+### ダッシュボード（勤務時間グラフ）
+![dashboard1](./images/dashboard1.png)
+
+### ダッシュボード（残業時間グラフ）
+![dashboard2](./images/dashboard2.png)
+
 
 ---
 
