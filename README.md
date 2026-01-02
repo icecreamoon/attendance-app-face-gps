@@ -12,22 +12,22 @@ AWS Amplify Hosting を利用し、
 ## 📸 スクリーンショット
 
 ### ホーム画面
-![home](./images/home.png)
+![home](./home.png)
 
 ### 顔認証画面（カメラ表示）
-![face](./images/face.png)
+![face](./face.png)
 
 ### 打刻履歴（位置情報・住所付き）
-![history](./images/history.png)
+![history](./history.png)
 
 ### 管理者ページ（顔写真付きテーブル）
-![admin](./images/admin.png)
+![admin](./admin.png)
 
 ### ダッシュボード（勤務時間グラフ）
-![dashboard1](./images/dashboard1.png)
+![dashboard1](./dashboard1.png)
 
 ### ダッシュボード（残業時間グラフ）
-![dashboard2](./images/dashboard2.png)
+![dashboard2](./dashboard2.png)
 
 
 ---
